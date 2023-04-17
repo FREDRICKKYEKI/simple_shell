@@ -1,4 +1,5 @@
 #include "main.h"
+#include <string.h>
 
 char *get_path(char **env)
 {
@@ -35,7 +36,7 @@ int handle_path(char **command, char **env)
 	path_value = get_path(env);
 	if (!path_value) /* failed to get path value */
 		return (-1);
-	token = _strtok(path_value, ":");
+	token = strtok(path_value, ":");
 	command_len = _strlen(*command);
 	while (token)
 	{
@@ -59,7 +60,7 @@ int handle_path(char **command, char **env)
 		}
 		/* prepare for next iteration */
 		free(new_path);
-		token = _strtok(NULL, ":");
+		token = strtok(NULL, ":");
 	}
 	free(path_value);
 	return (-1);
