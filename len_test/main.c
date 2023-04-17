@@ -1,71 +1,25 @@
 #include "main.h"
 #include <string.h>
 
-int child_exec(char *str, char *argv[])
+int main(int __attribute__((unused)) ac, char **av, char **env)
 {
-        pid_t child;
-        int status;
+	char *user_input = NULL, command = NULL;
+	int exit_status = 0, path_ret = 0;
+	int nth_process = 0;
 
-        child = fork();
-
-        if (child == 0)
+	while (1)
 	{
-                if (execve(argv[0], argv, NULL) == -1)
+		user_input = _getline();
+		if (!user_input) /* if getline fails */
 		{
-			perror(str);
-			return (1);
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
+			exit(exit_status);
 		}
-        }
-        else
-                wait(&status);
-	return (0);
-}
-
-int main(int __attribute__((unused)) ac, char *av[])
-{
-        char *line;
-        char *argv[3];
-	size_t max = 1024;
-	char *temp;
-	int count = 0;
-
-	(void)av;
-        argv[1] = NULL;
-        while (1)
-        {
-                _puts("$ ");
-                if (getline(&line, &max, stdin))
-                {
-	                while (line[count] != '\n')
-                                count++;
-                        temp = malloc(count + 1);
-			if (!temp)
-			{
-				_puts("Error: memory allocation failed\n");
-				return (1);
-			}
-			count = 0;
-			while (line[count] != '\n')
-			{
-                         	temp[count] = line[count];
-				count++;
-			}
-                        temp[count] = '\0';
-			if (_strcmp(temp, "exit") == 0)
-				break;
-			argv[0] = temp;
-
-			if (child_exec(av[0], argv) == 1)
-			{
-				exit(98);
-			}
-			free(temp);
-		}
-                else
+		else
 		{
-                 	perror("Error");
-			exit(98);
+			nth_process++;
+			command = get_token(user_input);
 		}
-        }
-	return (0);
+	}
 }

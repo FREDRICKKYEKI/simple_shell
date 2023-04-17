@@ -15,9 +15,15 @@ int _strcmp(char *s1, char *s2)
 		i++;
 	}
 
-	diff = s1[i] - s2[i];
-
-	if (s1[i] - s2[i] != 0)
-		return (diff);
 	return (0);
+}
+
+int _strlen(char *str)
+{
+	int count = 0;
+
+	while (str[count])
+		count++;
+
+	return (count);
 }
