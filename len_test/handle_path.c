@@ -17,7 +17,7 @@ char *get_path(char **env)
 		return (NULL);
 
 	/* store the path values in the allocated memory space */
-	for (ele = 5, count = 0; env[head][ele]; var++, count++)
+	for (ele = 5, count = 0; env[head][ele]; ele++, count++)
 		path[count] = env[head][ele];
 	path[count] = '\0';
 

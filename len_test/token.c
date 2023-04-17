@@ -12,7 +12,7 @@ char **get_token(char *input)
 	/* get number of elements */
 	for (count = 0; input[count]; count++)
 	{
-		if (input[count] = ' ')
+		if (input[count] == ' ')
 			num_elements++;
 	}
 	/* if it is only made up of a new line character */
@@ -33,7 +33,7 @@ char **get_token(char *input)
 	return (command);
 }
 
-unsigned int check_delim(char c, char *delim)
+unsigned int check_delim(char c, const char *delim)
 {
 	while (*delim != '\0')
 	{
@@ -55,12 +55,12 @@ char *_strtok(char *src, const char *delim)
 		return (NULL);
 	while (1) /* handle begining of the string */
 	{
-		if (check_delim(src, delim))
+		if (check_delim(*src, delim))
 		{
 			src++;
 			continue;
 		}
-		if (src == '\0') /* end of string */
+		if (*src == '\0') /* end of string */
 			return (NULL);
 		break;
 	}
@@ -68,12 +68,12 @@ char *_strtok(char *src, const char *delim)
 	value = src;
 	while (1)
 	{
-		if (src = '\0')
+		if (*src == '\0')
 		{
 			next_search = src; /* next exec will return NULL */
 			return (value);
 		}
-		if (check_delim(src, delim))
+		if (check_delim(*src, delim))
 		{
 			src = '\0';
 			next_search = src + 1;

@@ -6,6 +6,7 @@ int execute(char **command, char **av, char **env, char *input, int process,
 	pid_t child_process;
 	int status;
 
+	(void)process;
 	child_process = fork();
 
 	if (child_process == 0)
