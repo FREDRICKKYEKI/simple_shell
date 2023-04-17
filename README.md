@@ -1,2 +1,2 @@
-# simple_shell
-A simple linux shell
+#A Simple shell
+This is a simple shell implementation
