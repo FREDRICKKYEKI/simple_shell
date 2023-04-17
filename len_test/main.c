@@ -19,7 +19,20 @@ int main(int __attribute__((unused)) ac, char **av, char **env)
 		else
 		{
 			nth_process++;
-			command = get_token(user_input);
+			command = get_token(user_input); /* split command */
+			if (!command)
+			{
+				free(command);
+				continue;
+			}
+			if ((!_strcmp(command[0], "exit")) && command[1] == NULL)
+				handle_exit(command, user_input, exit_status);
+			if (!_strcmp(command[0], "env"))
+				handle_env(env);
+			else
+			{
+				path_ret = handle_path(&command[0], env);
+			}
 		}
 	}
 }

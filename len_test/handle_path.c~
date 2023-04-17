@@ -1,0 +1,14 @@
+#include "main.h"
+
+char *get_path(char **env)
+{
+	size_t count, head = 0; ele = 0;
+	char *path = NULL;
+
+	
+}
+
+int handle_path(char **command, char **env)
+{
+	
+}
