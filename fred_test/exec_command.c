@@ -7,7 +7,7 @@
  * 
  * Return: exit_status
 */
-int exec_command(char *input, char *argv[], char **envp)
+void exec_command(char *input, char *argv[], char **envp)
 {
 	char *d = " ";
 	char *token;
@@ -19,22 +19,21 @@ int exec_command(char *input, char *argv[], char **envp)
 	char *args[1024];
 	char *pathname;
 
+	if (input[0] == '\n')
+		return;
 
 	if (input[len - 1] == '\n')
 		input[len - 1] = '\0';
 	
-	if (input[0] == '\n')
-		return (1);
-
 	token = strtok(input, d);
-	
 	while (token != NULL)
 	{
-	    args[i] = token;
+		args[i] = token;
 		token = strtok(NULL, d);
 		i++;
 	}
 
+	/*create handle_exit function*/
 	if (strcmp(args[0], "exit") == 0)
 	{
 		printf("Goodbye!\n");
@@ -42,7 +41,6 @@ int exec_command(char *input, char *argv[], char **envp)
     }
 	args[i] = NULL;
 	pathname = getexecpath(args[0], dirs);
-
 
 	pid = fork();
 	if (pid == -1)
@@ -60,15 +58,15 @@ int exec_command(char *input, char *argv[], char **envp)
 				exit(EXIT_FAILURE);
 			}
 		}
-		else
-			handleothercommands(args, envp);
-
+		else if (handleothercommands(args, envp) != 0)
+		{
+			printf("%s: %s command not found\n", argv[0], args[0]);
+		}
 	}
 	else
 	{
 		wait(&status);
 		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-			return (WEXITSTATUS(status));
+			exit(WEXITSTATUS(status));
 	}
-	return (0);
 }

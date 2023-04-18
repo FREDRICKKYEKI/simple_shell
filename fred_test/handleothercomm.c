@@ -4,9 +4,13 @@
  * @input: tokenized user input
  * Return: void 
 */
-void handleothercommands(char **input_toks, char **envp)
+int handleothercommands(char **input_toks, char **envp)
 {
 	if (strcmp(input_toks[0],"cd") == 0)
+	{
 		handlechdir(input_toks, envp);
-	// else if ()
+		return (0);
+	}
+	else 
+		return (1);
 }
