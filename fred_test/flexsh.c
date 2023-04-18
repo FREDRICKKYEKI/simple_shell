@@ -7,6 +7,7 @@ int main(int argc, char *argv[], char **envp)
 {
 	char *input = NULL;
 	size_t len = 0;
+	int exit_status;
 
     while (1) 
 	{
@@ -19,9 +20,9 @@ int main(int argc, char *argv[], char **envp)
 			exit(EXIT_FAILURE);
         }
 		
-		exec_command(input, argv, envp);
+		exit_status = exec_command(input, argv, envp);
     }
 
-    return (0);
+		return (exit_status);
 }
 
