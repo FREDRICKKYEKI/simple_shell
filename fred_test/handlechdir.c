@@ -29,7 +29,3 @@ void handlechdir(char **input_toks, char **envp)
 		if (result != 0)
 			chdir(cwd);
 	}
-}
-	/*Get the current working directory*/
-	/*Change the current working directory*/
-	/*If an error occurred, go back to the original directory*/

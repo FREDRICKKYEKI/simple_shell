@@ -32,7 +32,7 @@ int handle_path(char **command, char **env)
 	struct stat check;
 
 	if (stat(*command, &check) == 0) /* need to confirm stat return value */
-		return (-1); /* command matches, no need to check from path */
+		return (1); /* command matches, no need to check from path */
 	path_value = get_path(env);
 	if (!path_value) /* failed to get path value */
 		return (-1);

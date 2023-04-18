@@ -32,9 +32,9 @@ int main(int __attribute__((unused)) ac, char **av, char **env)
 			else
 			{
 				path_ret = handle_path(&command[0], env);
-				exit_status = execute(command, av, env,
-						      user_input, nth_process,
-						      path_ret);
+				if (path_ret != -1)
+					exit_status = execute(command, av, env,
+							      user_input, path_ret);
 				if (path_ret == 0) /* need looking at */
 					free(command[0]);
 			}
