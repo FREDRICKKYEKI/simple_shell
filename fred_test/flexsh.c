@@ -8,6 +8,8 @@ int main(int argc, char *argv[], char **envp)
 	char *input = NULL;
 	size_t len = 0;
 
+	(void)argc;
+
     while (1) 
 	{
         printf("#flexsh$ ");

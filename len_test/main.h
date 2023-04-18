@@ -1,6 +1,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#define EXIT WIFEXITED
+#define STATUS WEXITSTATUS
+
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -17,8 +20,7 @@ void handle_env(char **env);
 char **get_token(char *input);
 char *get_path(char **env);
 int handle_path(char **command, char **env);
-int execute(char **command, char **av, char **env, char *input, int process,
-	    int path_ret);
+int execute(char **command, char **av, char **env, char *input, int path_ret);
 
 /* string functions */
 int _strcmp(char *s1, char *s2);

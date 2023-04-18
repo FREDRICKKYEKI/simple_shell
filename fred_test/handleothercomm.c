@@ -8,5 +8,5 @@ void handleothercommands(char **input_toks, char **envp)
 {
 	if (strcmp(input_toks[0],"cd") == 0)
 		handlechdir(input_toks, envp);
-		// printf("cd pressed!!!");
+	/* printf("cd pressed!!!"); */
 }

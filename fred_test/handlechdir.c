@@ -11,6 +11,7 @@ void handlechdir(char **input_toks, char **envp)
 {
 	char cwd[1024];
 	char *path = input_toks[1];
+	int result;
 
 	if (input_toks[1] != NULL && path != NULL)
 	{
@@ -18,7 +19,7 @@ void handlechdir(char **input_toks, char **envp)
 	
 		getcwd(cwd, sizeof(cwd));
 
-		int result = chdir(path);
+		 result = chdir(path);
 
 		if (result == 0)
 			printf("%s\n", path);
@@ -28,8 +29,8 @@ void handlechdir(char **input_toks, char **envp)
 		if (result != 0)
 			chdir(cwd);
 	}
-		// printf("%s\n", cwd);
+	/* printf("%s\n", cwd); */
 }
-	// Get the current working directory
-	// Change the current working directory
-	// If an error occurred, go back to the original directory
+/* Get the current working directory
+ * Change the current working directory
+ * If an error occurred, go back to the original directory */

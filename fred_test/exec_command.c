@@ -56,7 +56,7 @@ void exec_command(char *input, char *argv[], char **envp)
 		}
 		else
 		{
-			// printf("cd pressed!!!\n");
+			/* printf("cd pressed!!!\n"); */
 			handleothercommands(args, envp);
 		}
 	}
@@ -67,7 +67,7 @@ void exec_command(char *input, char *argv[], char **envp)
 
 }
 
-// if (pathname)
-// 	printf("%s\n", pathname);
-// else
-// 	printf("args[0] NULL!\n");
+/* if (pathname)
+ * 	printf("%s\n", pathname);
+ * else
+ * 	printf("args[0] NULL!\n"); */
