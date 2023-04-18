@@ -11,7 +11,7 @@
 
 char *getenvp(char *var_name, char **envp);
 char *getexecpath(char *name, char *dirs);
-void exec_command(char *input, char *argv[], char **envp);
+int exec_command(char *input, char *argv[], char **envp);
 void handleothercommands(char **input_toks, char **envp);
 void handlechdir(char **input_toks, char **envp);
 

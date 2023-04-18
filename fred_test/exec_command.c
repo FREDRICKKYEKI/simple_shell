@@ -5,9 +5,9 @@
  * @input: string input
  * @argv: argument vector
  * 
- * Return: void
+ * Return: exit_status
 */
-void exec_command(char *input, char *argv[], char **envp)
+int exec_command(char *input, char *argv[], char **envp)
 {
 	char *d = " ";
 	char *token;
@@ -19,11 +19,12 @@ void exec_command(char *input, char *argv[], char **envp)
 	char *args[1024];
 	char *pathname;
 
+
 	if (input[len - 1] == '\n')
 		input[len - 1] = '\0';
 	
 	if (input[0] == '\n')
-		return;
+		return (1);
 
 	token = strtok(input, d);
 	
@@ -34,6 +35,11 @@ void exec_command(char *input, char *argv[], char **envp)
 		i++;
 	}
 
+	if (strcmp(args[0], "exit") == 0)
+	{
+		printf("Goodbye!\n");
+		exit(0);
+    }
 	args[i] = NULL;
 	pathname = getexecpath(args[0], dirs);
 
@@ -55,19 +61,14 @@ void exec_command(char *input, char *argv[], char **envp)
 			}
 		}
 		else
-		{
-			/* printf("cd pressed!!!\n"); */
 			handleothercommands(args, envp);
-		}
+
 	}
 	else
 	{
 		wait(&status);
+		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+			return (WEXITSTATUS(status));
 	}
-
+	return (0);
 }
-
-/* if (pathname)
- * 	printf("%s\n", pathname);
- * else
- * 	printf("args[0] NULL!\n"); */

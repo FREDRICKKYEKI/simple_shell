@@ -10,6 +10,8 @@ char *getexecpath(char *name, char *dirs)
 	char *path;
 	char *dirs_cpy = strdup(dirs);
 	char *dir, *bin = "/bin";
+	char *slash = "/";
+	char *tmp = malloc(strlen(bin) + strlen(slash) + strlen(name) + 1);
 
 	if (name[0] == '/')
 		return name;
@@ -18,14 +20,20 @@ char *getexecpath(char *name, char *dirs)
 	while (dir != NULL)
 	{
 		path = malloc(strlen(dir) + strlen(name) + 2);
-		sprintf(path, "%s/%s", dir, name);
+		strcpy(path, dir);
+		strcat(path, slash);
+		strcat(path, name);
 
 		if (access(path, X_OK) == 0)
 		{
-			sprintf(path, "%s/%s", bin, name);
+			strcpy(tmp, bin);
+			strcat(tmp, slash);
+			strcat(tmp, name);
+			strcpy(path, tmp);
+			free(tmp);
 			return path;
 		}
-			
+
 		free(path);
 		dir = strtok(NULL, ":");
 	}
