@@ -24,12 +24,54 @@ char **get_token(char *input)
 	if (!command)
 		return (NULL);
 
-	token = strtok(input, " \n\t\r");
+	token = _strtok(input, " \n\t\r");
 	for (count = 0; token != NULL; count++)
 	{
 		command[count] = token;
-		token = strtok(NULL, " \n\t\r");
+		token = _strtok(NULL, " \n\t\r");
 	}
 	command[count] = NULL;
 	return (command);
+}
+
+char *_strtok(char *str, const char *delim)
+{
+	static int pos;
+	static char *token;
+	char *string = NULL;
+	int check_delim = 0, size = 0, i, j;
+
+	if (str) /* first time calling _strtok */
+	{
+		token = str;
+		pos = 0;
+	}
+	if (!token || !delim)
+		return (NULL);
+	if (pos >= _strlen(token))
+		return (NULL);
+	for (i = pos; token[i]; i++) /* find delimiter */
+	{
+		for (j = 0; delim[j]; j++)
+		{
+			if (token[i] == delim[j])
+			{
+				check_delim = 1;
+				break;
+			}
+		}
+		if (check_delim == 1)
+			break;
+		size++;
+	}
+	string = malloc(sizeof(char) * (size + 1));
+	if (!string)
+		return (NULL);
+	for (i = 0; i < size; i++) /* fill string with new token */
+		string[i] = token[pos + i];
+	string[i] = '\0';
+	pos += size + 1;
+
+	return (string);
+
 }

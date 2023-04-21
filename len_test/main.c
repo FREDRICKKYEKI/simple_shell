@@ -5,7 +5,7 @@ int main(int __attribute__((unused)) ac, char **av, char **env)
 {
 	char *user_input = NULL, **command = NULL;
 	int exit_status = 0, path_ret = 0;
-	int nth_process = 0;
+	int nth_process = 0, i;
 
 	while (1)
 	{
@@ -35,8 +35,8 @@ int main(int __attribute__((unused)) ac, char **av, char **env)
 				if (path_ret != -1)
 					exit_status = execute(command, av, env,
 							      user_input, path_ret);
-				if (path_ret == 0) /* need looking at */
-					free(command[0]);
+				for (i = 0; command[i]; i++) /* need looking at */
+					free(command[i]);
 			}
 			free(command);
 		}

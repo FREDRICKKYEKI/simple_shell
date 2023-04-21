@@ -36,7 +36,7 @@ int handle_path(char **command, char **env)
 	path_value = get_path(env);
 	if (!path_value) /* failed to get path value */
 		return (-1);
-	token = strtok(path_value, ":");
+	token = _strtok(path_value, ":");
 	command_len = _strlen(*command);
 	while (token)
 	{
@@ -60,7 +60,7 @@ int handle_path(char **command, char **env)
 		}
 		/* prepare for next iteration */
 		free(new_path);
-		token = strtok(NULL, ":");
+		token = _strtok(NULL, ":");
 	}
 	free(path_value);
 	return (-1);
