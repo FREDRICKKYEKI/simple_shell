@@ -1,72 +1,67 @@
 #include "main.h"
-
 /**
  * exec_command - executes linux commands
  * @input: string input
  * @argv: argument vector
  * 
- * Return: exit_status
+ * Return: void
 */
 void exec_command(char *input, char *argv[], char **envp)
 {
-	char *d = " ";
+	char *d = ";";
 	char *token;
-	int status; 
 	int i = 0;
 	int len = strlen(input);
-	char *dirs = getenvp("PATH", envp);
-	pid_t pid;
 	char *args[1024];
-	char *pathname;
+	int j;
 
 	if (input[0] == '\n')
 		return;
 
 	if (input[len - 1] == '\n')
 		input[len - 1] = '\0';
-	
+
 	token = strtok(input, d);
 	while (token != NULL)
 	{
-		args[i] = token;
-		token = strtok(NULL, d);
-		i++;
-	}
-
-	/*create handle_exit function*/
-	if (strcmp(args[0], "exit") == 0)
-	{
-		printf("Goodbye!\n");
-		exit(0);
-    }
-	args[i] = NULL;
-	pathname = getexecpath(args[0], dirs);
-
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork error");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		if (pathname != NULL)
+		if (strchr(token, ';') != NULL)
 		{
-			if (execve(pathname, args, envp) == -1)
+			// Split token into separate commands
+			char *subtoken;
+			subtoken = strtok(token, ";");
+			while (subtoken != NULL)
 			{
-				perror(argv[0]);
-				exit(EXIT_FAILURE);
+				args[i] = subtoken;
+				subtoken = strtok(NULL, ";");
+				i++;
 			}
 		}
-		else if (handleothercommands(args, envp) != 0)
+		else
 		{
-			printf("%s: %s command not found\n", argv[0], args[0]);
+			args[i] = token;
+			i++;
 		}
+		token = strtok(NULL, d);
 	}
-	else
+
+	for (j = 0; j < i; j++)
 	{
-		wait(&status);
-		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-			exit(WEXITSTATUS(status));
+		char *command = handle_comments(args[j]);
+		char *arglist[1024];
+		int k = 0;
+		char *arg = strtok(command, " ");
+
+		while (arg != NULL)
+		{
+			arglist[k++] = arg;
+			arg = strtok(NULL, " ");
+		}
+		arglist[k] = NULL;
+		if (strcmp(arglist[0], "exit") == 0)
+		{
+			exit(get_exit_status(arglist));
+			break;
+		}
+		exec_single_command(arglist, argv, envp);
 	}
 }
