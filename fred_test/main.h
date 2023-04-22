@@ -12,20 +12,24 @@
 char *getenvp(char *var_name, char **envp);
 char *getexecpath(char *name, char *dirs);
 void exec_command(char *input, char *argv[], char **envp);
-int handleothercommands(char **input_toks, char **envp);
-void handlechdir(char **input_toks, char **envp);
 void changedir(char *path, int cd_result);
 
+void handlechdir(char **input_toks, char **envp);
 void handle_env(char **input_toks);
 void handle_setenv(char **input_toks);
 void handle_unsetenv(char **input_toks);
 void handle_echo(char **args, char **envp);
 char *handle_comments(char *command);
+char *handle_logic(char **args, char **envp)
+int handleothercommands(char **input_toks, char **envp);
 
 void itoa(int n, char str[], int base);
 void rev_string(char str[]);
 int _atoi(char *str);
 void exec_single_command(char *args[], char **argv,char **envp);
 int get_exit_status(char **args);
+
+int is_command(char *command, char **envp)
+int is_other_command(char *command);
 
 #endif
