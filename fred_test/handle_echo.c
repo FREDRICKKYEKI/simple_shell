@@ -7,14 +7,18 @@
 */
 void handle_echo(char **args, char **envp)
 {
+
 	pid_t pid;
 	int status;
 	char *varg = args[1];
 	char pid_str[32], exit_status_str[32];
 	char  *env_var = (varg + 1), *env_path = getenvp(env_var, envp);
 
-	if (strcmp(args[0], "echo") != 0 && (varg[0] == '$') != 0)
+	if (strcmp(args[0], "echo") != 0)
 		return;
+	int i = 0;
+	while (args[i++])
+		printf("%s\n", args[i]);
 
 	pid = getpid();
 

@@ -8,7 +8,7 @@
 */
 void exec_command(char *input, char *argv[], char **envp)
 {
-	char *d = ";";
+	char *d = "&&;";
 	char *token;
 	int i = 0;
 	int len = strlen(input);
@@ -62,6 +62,11 @@ void exec_command(char *input, char *argv[], char **envp)
 			exit(get_exit_status(arglist));
 			break;
 		}
+
 		exec_single_command(arglist, argv, envp);
 	}
 }
+
+		// int i = 0;
+		// while (arglist[i] != NULL)
+		// 	printf("%s\n", arglist[i++]);

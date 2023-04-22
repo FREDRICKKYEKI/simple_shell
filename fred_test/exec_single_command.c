@@ -13,11 +13,10 @@ void exec_single_command(char *args[], char **argv, char **envp)
 	pid_t pid;
 	int status;
 
-	if (strcmp(pathname, "/bin/echo") == 0)
+	if (pathname != NULL && strcmp(pathname, "/bin/echo") == 0)
 		handle_echo(args, envp);
 
 	pid = fork();
-	
 
 	if (pid == -1)
 	{
@@ -43,4 +42,5 @@ void exec_single_command(char *args[], char **argv, char **envp)
 		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
 			exit(WEXITSTATUS(status));
 	}
+
 }

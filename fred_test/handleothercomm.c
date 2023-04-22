@@ -11,11 +11,11 @@ int handleothercommands(char **input_toks, char **envp)
 		handlechdir(input_toks, envp);
 		return (0);
 	}
-	else if (strcmp(input_toks[0],"setenv") == 0 || strcmp(input_toks[0],"unsetenv ") == 0)
-	{
-		handle_env(input_toks);
-		return (0);
-	}
+	// else if (strcmp(input_toks[0],"setenv") == 0 || strcmp(input_toks[0],"unsetenv ") == 0)
+	// {
+	// 	handle_env(input_toks);
+	// 	return (0);
+	// }
 	else
 		return (1);
 }
