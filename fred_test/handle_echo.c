@@ -14,7 +14,7 @@ void handle_echo(char **args, char **envp)
 	char pid_str[32], exit_status_str[32];
 	char  *env_var = (varg + 1), *env_path = getenvp(env_var, envp);
 
-	if (strcmp(args[0], "echo") != 0)
+	if (_strcmp(args[0], "echo") != 0)
 		return;
 	int i = 0;
 	while (args[i++])
@@ -23,17 +23,17 @@ void handle_echo(char **args, char **envp)
 	pid = getpid();
 
 	if (env_path != NULL)
-		strcpy(args[1], env_path);
+		_strcpy(args[1], env_path);
 
-	if (strcmp(args[1], "$$") == 0)
+	if (_strcmp(args[1], "$$") == 0)
 	{	
 		itoa(pid, pid_str, 10);
-		strcpy(args[1], pid_str);
+		_strcpy(args[1], pid_str);
 	}
-	else if (strcmp(args[1], "$?") == 0)
+	else if (_strcmp(args[1], "$?") == 0)
 	{
 		itoa(WEXITSTATUS(status), exit_status_str, 10);
-		strcpy(args[1], exit_status_str);
+		_strcpy(args[1], exit_status_str);
 	}
 
 }

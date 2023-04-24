@@ -13,9 +13,9 @@ char *getenvp(char *var_name, char **envp)
 
 	for (i = 0; envp[i] != NULL; i++)
 	{
-		if (strncmp(var_name, envp[i], strlen(var_name)) == 0 && envp[i][strlen(var_name)] == '=')
+		if (_strncmp(var_name, envp[i], _strlen(var_name)) == 0 && envp[i][_strlen(var_name)] == '=')
 		{
-			var_value = &envp[i][strlen(var_name)+1];
+			var_value = &envp[i][_strlen(var_name)+1];
 			break;
 		}
 	}

@@ -13,7 +13,7 @@ void exec_single_command(char *args[], char **argv, char **envp)
 	pid_t pid;
 	int status;
 
-	if (pathname != NULL && strcmp(pathname, "/bin/echo") == 0)
+	if (pathname != NULL && _strcmp(pathname, "/bin/echo") == 0)
 		handle_echo(args, envp);
 
 	pid = fork();

@@ -20,16 +20,23 @@ void handle_setenv(char **input_toks);
 void handle_unsetenv(char **input_toks);
 void handle_echo(char **args, char **envp);
 char *handle_comments(char *command);
-char *handle_logic(char **args, char **envp)
 int handleothercommands(char **input_toks, char **envp);
 
+/*string functions*/
 void itoa(int n, char str[], int base);
 void rev_string(char str[]);
 int _atoi(char *str);
+
+int _strcmp(char *s1, char *s2);
+int _strlen(char *str);
+size_t _strncmp(char *s1, char *s2, size_t n);
+char *_strcat(char *dest, char *src);
+char *_strcpy(char *dest, char *src);
+char *_strchr(char *s, char c);
+
+
 void exec_single_command(char *args[], char **argv,char **envp);
 int get_exit_status(char **args);
 
-int is_command(char *command, char **envp)
-int is_other_command(char *command);
 
 #endif

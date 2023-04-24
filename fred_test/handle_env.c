@@ -7,7 +7,7 @@
 */
 void handle_env(char **input_toks)
 {
-	if (strcmp(input_toks[0], "setenv") == 0)
+	if (_strcmp(input_toks[0], "setenv") == 0)
 		handle_setenv(input_toks);
 	else
 		handle_unsetenv(input_toks);

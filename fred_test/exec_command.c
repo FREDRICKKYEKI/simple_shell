@@ -11,7 +11,7 @@ void exec_command(char *input, char *argv[], char **envp)
 	char *d = "||;";
 	char *token;
 	int i = 0;
-	int len = strlen(input);
+	int len = _strlen(input);
 	char *args[1024];
 	int j;
 
@@ -24,9 +24,8 @@ void exec_command(char *input, char *argv[], char **envp)
 	token = strtok(input, d);
 	while (token != NULL)
 	{
-		if (strchr(token, ';') != NULL)
+		if (_strchr(token, ';') != NULL)
 		{
-			// Split token into separate commands
 			char *subtoken;
 			subtoken = strtok(token, ";");
 			while (subtoken != NULL)
@@ -57,7 +56,7 @@ void exec_command(char *input, char *argv[], char **envp)
 			arg = strtok(NULL, " ");
 		}
 		arglist[k] = NULL;
-		if (strcmp(arglist[0], "exit") == 0)
+		if (_strcmp(arglist[0], "exit") == 0)
 		{
 			exit(get_exit_status(arglist));
 			break;

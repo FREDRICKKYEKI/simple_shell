@@ -22,7 +22,7 @@ void handlechdir(char **input_toks, char **envp)
 
 	if (input_toks[1] != NULL && path != NULL)
 	{	
-		if (strcmp(input_toks[1], "-") == 0)
+		if (_strcmp(input_toks[1], "-") == 0)
 		{
 			if (oldpath != NULL)
 			{
@@ -67,5 +67,4 @@ void changedir(char *path, int cd_result)
 		chdir(cwd);
 
 	handle_setenv(set_env_toks);
-
 }

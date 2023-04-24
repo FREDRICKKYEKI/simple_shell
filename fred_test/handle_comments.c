@@ -7,7 +7,7 @@
 */
 char *handle_comments(char *command)
 {
-	char *hash_ptr = strchr(command, '#');
+	char *hash_ptr = _strchr(command, '#');
     if (hash_ptr != NULL)
 	{
         *hash_ptr = '\0';
