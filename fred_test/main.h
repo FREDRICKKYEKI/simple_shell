@@ -11,7 +11,6 @@
 
 char *getenvp(char *var_name, char **envp);
 char *getexecpath(char *name, char *dirs);
-void exec_command(char *input, char *argv[], char **envp);
 void changedir(char *path, int cd_result);
 
 void handlechdir(char **input_toks, char **envp);
@@ -34,7 +33,8 @@ char *_strcpy(char *dest, char *src);
 char *_strchr(char *s, char c);
 char *_strdup(const char *str);
 
-void exec_single_command(char *args[], char **argv,char **envp);
+void exec_command(char *input, char *argv[], char **envp, int *exit_status);
+void exec_single_command(char *args[], char **argv,char **envp, int *exit_status);
 int get_exit_status(char **args);
 
 int _putchar(char c);

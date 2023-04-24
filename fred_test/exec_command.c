@@ -6,7 +6,7 @@
  * 
  * Return: void
 */
-void exec_command(char *input, char *argv[], char **envp)
+void exec_command(char *input, char *argv[], char **envp, int *exit_status)
 {
 	char *d = "||;";
 	char *token;
@@ -57,11 +57,8 @@ void exec_command(char *input, char *argv[], char **envp)
 		}
 		arglist[k] = NULL;
 		if (_strcmp(arglist[0], "exit") == 0)
-		{
 			exit(get_exit_status(arglist));
-			break;
-		}
 
-		exec_single_command(arglist, argv, envp);
+		exec_single_command(arglist, argv, envp, exit_status);
 	}
 }

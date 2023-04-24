@@ -6,7 +6,7 @@
  * 
  * Return: void
  */
-void exec_single_command(char *args[], char **argv, char **envp)
+void exec_single_command(char *args[], char **argv,char **envp, int *exit_status)
 {
 	char *dirs = getenvp("PATH", envp);
 	char *pathname = getexecpath(args[0], dirs);
@@ -30,17 +30,17 @@ void exec_single_command(char *args[], char **argv, char **envp)
 		{	
 			if (execve(pathname, args, envp) == -1)
 			{
-				perror(args[0]);
+				perror(argv[0]);
 				exit(EXIT_FAILURE);
 			}
 		}
 		else if (handleothercommands(args, envp) != 0)
 		{
-			strcpy(print_message, argv[0]);
-			strcat(print_message, colon);
-			strcat(print_message, args[0]);
-			strcat(print_message, message);
-			strcat(print_message, "\n");
+			_strcpy(print_message, argv[0]);
+			_strcat(print_message, colon);
+			_strcat(print_message, args[0]);
+			_strcat(print_message, message);
+			_strcat(print_message, "\n");
 			_puts(print_message);
 		}
 	}
@@ -48,7 +48,7 @@ void exec_single_command(char *args[], char **argv, char **envp)
 	{
 		wait(&status);
 		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-			exit(WEXITSTATUS(status));
+			*exit_status = WEXITSTATUS(status);
 	}
 
 }
