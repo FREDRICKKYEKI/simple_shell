@@ -8,7 +8,7 @@
 char *getexecpath(char *name, char *dirs)
 {
 	char *path;
-	char *dirs_cpy = strdup(dirs);
+	char *dirs_cpy = _strdup(dirs);
 	char *dir, *bin = "/bin";
 	char *slash = "/";
 	char *tmp = malloc(_strlen(bin) + _strlen(slash) + _strlen(name) + 1);

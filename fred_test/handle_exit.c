@@ -7,7 +7,7 @@
 */
 int get_exit_status(char **args)
 {
-	printf("Goodbye!\n");
+	_puts("Goodbye!");
 	if (args[1] == NULL)
 		return (0);
 	else

@@ -25,12 +25,12 @@ void handle_setenv(char **input_toks)
     int overwrite = 1, ret;
 	if (input_toks[1] == NULL)
 	{
-        printf("setenv: Too few arguments\n");
+        _puts("setenv: Too few arguments");
         return;
     }
     if (input_toks[3] != NULL)
 	{
-        printf("setenv: Too many arguments\n");
+        _puts("setenv: Too many arguments");
         return;
     }
 	
@@ -53,12 +53,12 @@ void handle_unsetenv(char **input_toks)
 	int ret;
 	if (input_toks[1] == NULL)
 	{
-		printf("unsetenv: Too few arguments\n");
+		_puts("unsetenv: Too few arguments");
 		return;
 	}
 	if (input_toks[2] != NULL)
 	{
-		printf("unsetenv: Too many arguments\n");
+		_puts("unsetenv: Too many arguments");
 		return;
 	}
 

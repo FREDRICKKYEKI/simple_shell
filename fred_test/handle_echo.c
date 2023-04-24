@@ -16,9 +16,6 @@ void handle_echo(char **args, char **envp)
 
 	if (_strcmp(args[0], "echo") != 0)
 		return;
-	int i = 0;
-	while (args[i++])
-		printf("%s\n", args[i]);
 
 	pid = getpid();
 

@@ -37,7 +37,7 @@ void rev_string(char str[])
     int i, j;
     char chr;
 
-    for (i = 0, j = strlen(str) - 1; i < j; i++, j--)
+    for (i = 0, j = _strlen(str) - 1; i < j; i++, j--)
 	{
         chr = str[i];
         str[i] = str[j];
@@ -202,4 +202,31 @@ char *_strchr(char *s, char c)
 	if (*(s + i) == c)
 		return (s + i);
 	return ('\0');
+}
+
+/**
+ * _strdup - replicates a string in the heap memory.
+ * @s: Type char pointer str
+ * Return: duplicated str
+ */
+char *_strdup(const char *str)
+{
+	char *strout;
+	unsigned int i, j;
+
+	if (str == NULL)
+		return (NULL);
+
+	for (i = 0; str[i] != '\0'; i++)
+		;
+
+	strout = (char *)malloc(sizeof(char) * (i + 1));
+
+	if (strout == NULL)
+		return (NULL);
+
+	for (j = 0; j <= i; j++)
+		strout[j] = str[j];
+
+	return (strout);
 }

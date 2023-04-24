@@ -11,7 +11,7 @@ int main(int argc, char *argv[], char **envp)
 
     while (1) 
 	{
-        printf("#flexsh$ ");
+        _puts("#flexsh$ ");
         fflush(stdout);
 
         if (getline(&input, &len, stdin) == -1)

@@ -12,6 +12,7 @@ void exec_single_command(char *args[], char **argv, char **envp)
 	char *pathname = getexecpath(args[0], dirs);
 	pid_t pid;
 	int status;
+    char print_message[50], colon[] = ":", message[] = " command not found";
 
 	if (pathname != NULL && _strcmp(pathname, "/bin/echo") == 0)
 		handle_echo(args, envp);
@@ -34,7 +35,13 @@ void exec_single_command(char *args[], char **argv, char **envp)
 			}
 		}
 		else if (handleothercommands(args, envp) != 0)
-			printf("%s: %s command not found\n", argv[0], args[0]);
+		{
+			strcpy(print_message, argv[0]);
+			strcat(print_message, colon);
+			strcat(print_message, args[0]);
+			strcat(print_message, message);
+			_puts(print_message);
+		}
 	}
 	else
 	{
