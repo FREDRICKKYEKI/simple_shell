@@ -40,6 +40,7 @@ void exec_single_command(char *args[], char **argv, char **envp)
 			strcat(print_message, colon);
 			strcat(print_message, args[0]);
 			strcat(print_message, message);
+			strcat(print_message, "\n");
 			_puts(print_message);
 		}
 	}

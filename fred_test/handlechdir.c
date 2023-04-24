@@ -59,7 +59,10 @@ void changedir(char *path, int cd_result)
 	char *set_env_toks[20] = {"setenv","PWD", cwd};
 
 	if (cd_result == 0)
+	{
+		_strcat(cwd, "\n");
 		_puts(cwd);
+	}
 	else
 		perror("Error");
 
