@@ -20,11 +20,12 @@ int handle_other(char **command, char *user_input, int exit_status,
 		handle_echo(command, exit_status, env);
 		return (1);
 	}
-	/* if (!_strcmp(command[0], "cd"))
-	 * {
-	 *	change_dir(command, env);
-	 *	return (1);
-	 *} */
+
+	if (!_strcmp(command[0], "cd"))
+	{
+		change_dir(command);
+		return (1);
+	}
 	return (0);
 }
 
@@ -63,4 +64,29 @@ void handle_echo(char **command, int exit_status, char **env)
 		_puts(command[i]);
 	}
 	_puts("\n");
+}
+
+void change_dir(char **command)
+{
+	int value = -1;
+	char cwd[PATH_MAX];
+
+	if (command[1] == NULL)
+		value = chdir(getenv("HOME"));
+	else if (_strcmp(command[1], "-") == 0)
+		value = chdir(getenv("OLDPWD"));
+	else
+		value = chdir(command[1]);
+
+	if (value == -1)
+	{
+		perror("hsh");
+		return;
+	}
+	else if (value != -1)
+	{
+		getcwd(cwd, sizeof(cwd));
+		setenv("OLDPWD", getenv("PWD"), 1);
+		setenv("PWD", cwd, 1);
+	}
 }
