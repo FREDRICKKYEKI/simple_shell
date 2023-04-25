@@ -34,44 +34,53 @@ char **get_token(char *input)
 	return (command);
 }
 
+unsigned int check_delim(char c, const char *str)
+{
+	unsigned int count;
+
+	for (count = 0; str[count] != '\0'; count++)
+	{
+		if (c == str[count])
+			return (1);
+	}
+	return (0);
+}
+
 char *_strtok(char *str, const char *delim)
 {
-	static int pos;
-	static char *token;
-	char *string = NULL;
-	int check_delim = 0, size = 0, i, j;
+	static char *token, *new_token;
+	unsigned int i;
 
-	if (str) /* first time calling _strtok */
-	{
-		token = str;
-		pos = 0;
-	}
-	if (!token || !delim)
+	if (str != NULL)
+		new_token = str;
+	token = new_token;
+	if (token == NULL)
 		return (NULL);
-	if (pos >= _strlen(token))
-		return (NULL);
-	for (i = pos; token[i]; i++) /* find delimiter */
+	for (i = 0; token[i] != '\0'; i++)
 	{
-		for (j = 0; delim[j]; j++)
-		{
-			if (token[i] == delim[j])
-			{
-				check_delim = 1;
-				break;
-			}
-		}
-		if (check_delim == 1)
+		if (check_delim(token[i], delim) == 0)
 			break;
-		size++;
 	}
-	string = malloc(sizeof(char) * (size + 1));
-	if (!string)
+	if (new_token[i] == '\0' || new_token[i] == '#')
+	{
+		new_token = NULL;
 		return (NULL);
-	for (i = 0; i < size; i++) /* fill string with new token */
-		string[i] = token[pos + i];
-	string[i] = '\0';
-	pos += size + 1;
-
-	return (string);
-
+	}
+	token = new_token + i;
+	new_token = token;
+	for (i = 0; new_token[i] != '\0'; i++)
+	{
+		if (check_delim(new_token[i], delim) == 1)
+			break;
+	}
+	if (new_token[i] == '\0')
+		new_token = NULL;
+	else
+	{
+		new_token[i] = '\0';
+		new_token = new_token + i + 1;
+		if (*new_token == '\0')
+			new_token = NULL;
+	}
+	return (token);
 }

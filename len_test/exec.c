@@ -3,7 +3,7 @@
 int execute(char **command, char **av, char **env, char *input, int path_ret)
 {
 	pid_t child_process;
-	int status, exit_status, i;
+	int status, exit_status;
 
 	(void)path_ret;
 	child_process = fork();
@@ -13,8 +13,8 @@ int execute(char **command, char **av, char **env, char *input, int path_ret)
 		if (execve(command[0], command, env) == -1)
 		{
 			perror(av[0]);
-			for (i = 0; command[i]; i++)
-				free(command[i]);
+			if (!path_ret)
+				free(command[0]);
 			free(command);
 			free(input);
 			exit(errno);
@@ -23,8 +23,8 @@ int execute(char **command, char **av, char **env, char *input, int path_ret)
 	else if (child_process == -1)
 	{
 		perror(av[0]);
-		for (i = 0; command[i]; i++)
-			free(command[i]);
+		if (!path_ret)
+			free(command[0]);
 		free(command);
 		free(input);
 		exit(errno);
