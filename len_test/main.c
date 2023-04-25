@@ -25,11 +25,8 @@ int main(int __attribute__((unused)) ac, char **av, char **env)
 				free(command);
 				continue;
 			}
-			if ((!_strcmp(command[0], "exit")) && command[1] == NULL)
-				handle_exit(command, user_input, exit_status);
-			if (!_strcmp(command[0], "env"))
-				handle_env(env);
-			else
+			if (handle_other(command, user_input, exit_status,
+					 env) == 0)
 			{
 				path_ret = handle_path(&command[0], env);
 				exit_status = execute(command, av, env,

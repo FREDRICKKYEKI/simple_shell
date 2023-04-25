@@ -10,7 +10,7 @@ void handle_exit(char **command, char *input, int _exit)
 		free(command);
 		exit(_exit);
 	}
-	exit_status = atoi(command[1]); /* should write own function */
+	exit_status = _atoi(command[1]); /* should write own function */
 	free(input);
 	free(command);
 	exit(exit_status);
