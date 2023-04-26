@@ -20,6 +20,9 @@ int handle_other(char **command, char *user_input, int exit_status,
 		handle_env(env);
 		return (0);
 	}
+	if (!_strcmp(command[0], "$$") || !_strcmp(command[0], "$?"))
+		handle_replacement(&command[0], exit_status);
+
 	if (!_strcmp(command[0], "echo"))
 	{
 		if (command[1] == NULL)
@@ -54,29 +57,44 @@ void handle_echo(char **command, int exit_status, char **env)
 
 	_itoa(pid, pid_str, 10);
 	_itoa(exit_status, exit_str, 10);
-
-	if (!_strcmp(command[1], "$?"))
-		write(1, exit_str, _strlen(exit_str));
-	if (!_strcmp(command[1], "$$"))
-		write(1, pid_str, _strlen(pid_str));
-	if (!_strcmp(command[1], "$PATH"))
-	{
-		path = get_path(env);
-		_puts(path);
-		free(path);
-	}
-	if ((!_strcmp(command[1], "$?")) || (!_strcmp(command[1], "$$"))
-	    || (!_strcmp(command[1], "$PATH")))
-		i = 2;
-
-	else
-		i = 1;
-
-	for (; command[i] != NULL; i++)
+	for (i = 1; command[i] != NULL; i++)
 	{
 		if (i > 1)
 			_puts(" ");
+		if (!_strcmp(command[i], "$?"))
+		{
+			write(1, exit_str, _strlen(exit_str));
+			continue;
+		}
+		if (!_strcmp(command[i], "$$"))
+		{
+			write(1, pid_str, _strlen(pid_str));
+			continue;
+		}
+		if (!_strcmp(command[i], "$PATH"))
+		{
+			path = get_path(env);
+			_puts(path);
+			free(path);
+			continue;
+		}
 		_puts(command[i]);
 	}
 	_puts("\n");
+}
+
+/**
+ * handle_replacement - replaces the $? and $$ commands
+ * @command: the address of the command to replace
+ * @exit_status: exit status of the previous command
+ */
+void handle_replacement(char **command, int exit_status)
+{
+	pid_t pid = getpid();
+
+	if (!_strcmp(*command, "$$"))
+		_itoa(pid, *command, 10);
+
+	if (!_strcmp(*command, "$?"))
+		_itoa(exit_status, *command, 10);
 }

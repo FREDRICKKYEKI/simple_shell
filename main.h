@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #include <limits.h>
 
+
 /* function prototypes */
 char *_getline(void);
 void handle_exit(char **command, char *input, int _exit);
@@ -21,11 +22,13 @@ void handle_env(char **env);
 char **get_token(char *input);
 char *get_path(char **env);
 int handle_path(char **command, char **env);
-int execute(char **command, char **av, char **env, char *input, int path_ret);
+int execute(char **command, char **av, char **env, char *input, int path_ret,
+	    int process_num);
 int handle_other(char **command, char *user_input, int exit_status,
 		 char **env, char *av);
 void handle_echo(char **command, int exit_status, char **env);
 void change_dir(char **command, char *av);
+void handle_replacement(char **command, int exit_status);
 
 /* string functions */
 int _strcmp(char *s1, char *s2);
@@ -42,5 +45,6 @@ char *_strdup(const char *str);
 /* print functions */
 int _putchar(char c);
 int _puts(char *str);
+void print_err(char *name, int process_num, char *command);
 
 #endif
