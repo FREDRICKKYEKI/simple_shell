@@ -3,7 +3,7 @@ This is a simple UNIX command interpreter based on bash and Sh, as a course work
 
 ## Overview
 
-This is a command language interpreter that executes commands read from the standard input or from a file, authored by **[Fredrick Kyeki](https://github.com/fredrickkyeki)** and **[Lennox Namasaka](https://github.com/lennoxnamasaka).**
+This is a command language interpreter that executes commands read from the standard input or from a file, authored by **[Fredrick Kyeki](https://github.com/fredrickkyeki)** and **[Lennox Namasaka](https://github.com/NamasakaLennox).**
 ### Invocation
 
 Usage: **./flexsh** 
