@@ -7,7 +7,7 @@
  *
  * Return: pointer to the string representation of num
  */
-void itoa(int n, char str[], int base)
+void _itoa(int n, char str[], int base)
 {
     int i = 0, sign = n;
 

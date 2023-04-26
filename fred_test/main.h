@@ -10,19 +10,25 @@
 #include <errno.h>
 
 char *getenvp(char *var_name, char **envp);
+int getenvp_index(char *var_name, char **envp);
+
 char *getexecpath(char *name, char *dirs);
-void changedir(char *path, int cd_result);
+void changedir(char *path, int cd_result, char **envp);
 
 void handlechdir(char **input_toks, char **envp);
-void handle_env(char **input_toks);
-void handle_setenv(char **input_toks);
-void handle_unsetenv(char **input_toks);
+void handle_setenv(char **input_toks, char **envp);
+void handle_unsetenv(char **input_toks, char **envp);
 void handle_echo(char **args, char **envp);
 char *handle_comments(char *command);
 int handleothercommands(char **input_toks, char **envp);
 
+/*environment functions*/
+void handle_env(char **input_toks, char **envp);
+int _setenv(char *name, char *value, int overwrite, char **envp);
+int _unsetenv(char *name, char **envp);
+
 /*string functions*/
-void itoa(int n, char str[], int base);
+void _itoa(int n, char str[], int base);
 void rev_string(char str[]);
 int _atoi(char *str);
 int _strcmp(char *s1, char *s2);

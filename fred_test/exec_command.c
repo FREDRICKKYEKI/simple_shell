@@ -15,6 +15,7 @@ void exec_command(char *input, char *argv[], char **envp, int *exit_status)
 	char *args[1024];
 	int j;
 
+
 	if (input[0] == '\n')
 		return;
 
@@ -57,7 +58,11 @@ void exec_command(char *input, char *argv[], char **envp, int *exit_status)
 		}
 		arglist[k] = NULL;
 		if (_strcmp(arglist[0], "exit") == 0)
+		{
 			exit(get_exit_status(arglist));
+			free(arglist);
+			free(envp);
+		}
 
 		exec_single_command(arglist, argv, envp, exit_status);
 	}

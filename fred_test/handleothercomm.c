@@ -13,7 +13,7 @@ int handleothercommands(char **input_toks, char **envp)
 	}
 	else if (_strcmp(input_toks[0],"setenv") == 0 || _strcmp(input_toks[0],"unsetenv ") == 0)
 	{
-		handle_env(input_toks);
+		handle_env(input_toks, envp);
 		return (0);
 	}
 	else

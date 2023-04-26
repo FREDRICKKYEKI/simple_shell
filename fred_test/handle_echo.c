@@ -18,18 +18,18 @@ void handle_echo(char **args, char **envp)
 		return;
 
 	pid = getpid();
-
+	
 	if (env_path != NULL)
 		_strcpy(args[1], env_path);
 
 	if (_strcmp(args[1], "$$") == 0)
 	{	
-		itoa(pid, pid_str, 10);
+		_itoa(pid, pid_str, 10);
 		_strcpy(args[1], pid_str);
 	}
 	else if (_strcmp(args[1], "$?") == 0)
 	{
-		itoa(WEXITSTATUS(status), exit_status_str, 10);
+		_itoa(WEXITSTATUS(status), exit_status_str, 10);
 		_strcpy(args[1], exit_status_str);
 	}
 
