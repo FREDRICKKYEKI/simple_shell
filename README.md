@@ -3,11 +3,11 @@ This is a simple UNIX command interpreter based on bash and Sh, as a course work
 
 ## Overview
 
-This is a command language interpreter that executes commands read from the standard input or from a file, authored by **Fredrick Kyeki** and **Lennox Namasaka**
+This is a command language interpreter that executes commands read from the standard input or from a file, authored by **[Fredrick Kyeki](https://github.com/fredrickkyeki)** and **[Lennox Namasaka](https://github.com/lennoxnamasaka).**
 ### Invocation
 
-Usage: **flexsh** 
-Sodash is started with the standard input connected to the terminal. To start, compile all .c located in this repository by using this command: 
+Usage: **./flexsh** 
+flexsh is started with the standard input connected to the terminal. To start, compile all .c located in this repository by using this command: 
 ```
 gcc -Wall -Werror -Wextra -pedantic *.c -o flexsh
 ./flexsh
@@ -18,8 +18,8 @@ gcc -Wall -Werror -Wextra -pedantic *.c -o flexsh
 
 Example:
 ```
-$ echo "echo 'holberton'" | ./flexsh
-'holberton'
+$ echo "echo 'alx'" | ./flexsh
+'alx'
 $
 ```
 
@@ -36,8 +36,18 @@ If a command line argument is invoked, **flexsh** will take that first argument 
 Example:
 ```
 $ cat text
-echo 'holberton'
+echo 'alx'
 $ ./flexsh text
-'holberton'
+'alx'
 $
 ```
+
+## Authors & Copyrights
+
+* Fredrick Kyeki <[fredrickkyeki](https://github.com/fredrickkyeki)>
+* Lennox Namasaka <[lennoxnamasaka](https://github.com/lennoxnamasaka)>
+
+## More information
+
+**flexsh** is a simple shell unix command interpreter that is part of the ALX low level programming module at ALX School and is intended to emulate the basics **sh** shell.
+
