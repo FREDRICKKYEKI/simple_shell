@@ -81,7 +81,7 @@ void rev_string(char *str)
 }
 
 /**
- * _strdup - replicates a string in the heap memory.
+ * _strdup - duplicates a string in the heap memory.
  * @str: the string to duplicate
  *
  * Return: duplicated str

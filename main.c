@@ -38,7 +38,8 @@ int main(int __attribute__((unused)) ac, char **av, char **env)
 			{
 				path_ret = handle_path(&command[0], env);
 				exit_status = execute(command, av, env,
-						      user_input, path_ret);
+						      user_input, path_ret,
+						      nth_process);
 				if (path_ret == 0)
 					free(command[0]);
 			}

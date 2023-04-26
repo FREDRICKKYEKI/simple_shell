@@ -13,13 +13,26 @@
 int handle_other(char **command, char *user_input, int exit_status,
 		 char **env, char *av)
 {
-	if (!_strcmp(command[0], "exit"))
+	if (!_strcmp(command[0], "exit")) /* exit command */
 		handle_exit(command, user_input, exit_status);
-	if (!_strcmp(command[0], "env"))
+	if (!_strcmp(command[0], "setenv")) /* setenv command */
+	{
+		handle_setenv(command);
+		return (0);
+	}
+	if (!_strcmp(command[0], "unsetenv")) /* unsetenv command */
+	{
+		handle_unsetenv(command);
+		return (0);
+	}
+	if (!_strcmp(command[0], "env")) /* default env command */
 	{
 		handle_env(env);
 		return (0);
 	}
+	if (!_strcmp(command[0], "$$") || !_strcmp(command[0], "$?"))
+		handle_replacement(&command[0], exit_status);
+	/* echo command */
 	if (!_strcmp(command[0], "echo"))
 	{
 		if (command[1] == NULL)
@@ -30,7 +43,7 @@ int handle_other(char **command, char *user_input, int exit_status,
 		handle_echo(command, exit_status, env);
 		return (0);
 	}
-
+	/* cd command - changing directory */
 	if (!_strcmp(command[0], "cd"))
 	{
 		change_dir(command, av);
@@ -54,29 +67,98 @@ void handle_echo(char **command, int exit_status, char **env)
 
 	_itoa(pid, pid_str, 10);
 	_itoa(exit_status, exit_str, 10);
-
-	if (!_strcmp(command[1], "$?"))
-		write(1, exit_str, _strlen(exit_str));
-	if (!_strcmp(command[1], "$$"))
-		write(1, pid_str, _strlen(pid_str));
-	if (!_strcmp(command[1], "$PATH"))
-	{
-		path = get_path(env);
-		_puts(path);
-		free(path);
-	}
-	if ((!_strcmp(command[1], "$?")) || (!_strcmp(command[1], "$$"))
-	    || (!_strcmp(command[1], "$PATH")))
-		i = 2;
-
-	else
-		i = 1;
-
-	for (; command[i] != NULL; i++)
+	for (i = 1; command[i] != NULL; i++)
 	{
 		if (i > 1)
 			_puts(" ");
+		if (!_strcmp(command[i], "$?"))
+		{
+			write(1, exit_str, _strlen(exit_str));
+			continue;
+		}
+		if (!_strcmp(command[i], "$$"))
+		{
+			write(1, pid_str, _strlen(pid_str));
+			continue;
+		}
+		if (!_strcmp(command[i], "$PATH"))
+		{
+			path = get_path(env);
+			_puts(path);
+			free(path);
+			continue;
+		}
 		_puts(command[i]);
 	}
 	_puts("\n");
+}
+
+/**
+ * handle_replacement - replaces the $? and $$ commands
+ * @command: the address of the command to replace
+ * @exit_status: exit status of the previous command
+ */
+void handle_replacement(char **command, int exit_status)
+{
+	pid_t pid = getpid();
+
+	if (!_strcmp(*command, "$$"))
+		_itoa(pid, *command, 10);
+
+	if (!_strcmp(*command, "$?"))
+		_itoa(exit_status, *command, 10);
+}
+
+/**
+ * handle_setenv - sets environment variables
+ * @input_toks: tokenized user input
+ *
+ * Return: void
+ */
+void handle_setenv(char **input_toks)
+{
+	int overwrite = 1, ret;
+
+	if (input_toks[1] == NULL || input_toks[2] == NULL)
+	{
+		_puts("setenv: Too few arguments \n");
+		return;
+	}
+	if (input_toks[3] != NULL)
+	{
+		_puts("setenv: Too many arguments \n");
+		return;
+	}
+
+	ret = setenv(input_toks[1], input_toks[2], overwrite);
+
+	if (ret != 0)
+		perror("setenv");
+}
+
+/**
+ * handle_unsetenv - unsets environment variables
+ * @input_toks: tokenized user input
+ *
+ * Return: void
+ */
+void handle_unsetenv(char **input_toks)
+{
+	int ret;
+
+	if (input_toks[1] == NULL)
+	{
+		_puts("unsetenv: Too few arguments \n");
+		return;
+	}
+	if (input_toks[2] != NULL)
+	{
+		_puts("unsetenv: Too many arguments \n");
+		return;
+	}
+
+	ret = unsetenv(input_toks[1]);
+
+	if (ret != 0)
+		perror("unsetenv");
 }
